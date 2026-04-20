@@ -59,8 +59,12 @@ return the output in a format that can be easily read and followed by a user.
     const completion = await openai.chat.completions.create({
       model: "arcee-ai/trinity-large-preview:free",
       messages: [
+        { role: "system", content: "You are a helpful assistant that creates personalized learning plans based on user goals." },
         { role: "user", content: prompt }
       ],
+      temperature: 0.7,
+      max_tokens: 1500,
+      
     });
 
     const result = completion.choices[0].message.content;
