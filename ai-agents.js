@@ -1,86 +1,62 @@
 require("dotenv").config();
-
 const OpenAI = require("openai");
 
-// 🔐 OpenRouter config
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-// 🎯 Goal Analyzer Function
-const analyzeGoal = async (goal, duration = "7 days") => {
-  if (!goal) {
-    console.log("❌ Please provide a goal!");
-    return;
-  }
+/**
+ * 🎯 ANALYZE GOAL
+ */
+const analyzeGoal = async (goal, durationDays) => {
+  const prompt = `
+Create a JSON learning plan for: "${goal}" in ${durationDays} days.
 
-  const prompt = `Analyze the goal: "${goal}" and create a step-by-step learning plan to achieve it in ${duration}.
-  
-1. Break down the goal into smaller, manageable tasks.
-2. Suggest resources (books, courses, websites) for each task.
-3. Provide a timeline for completing each task within the overall duration.
-4. Include tips for staying motivated and tracking progress.
+Return ONLY JSON in this format:
+{
+  "dailyTasks": [
+    { "day": 1, "title": "Task title", "description": "Details" }
+  ]
+}
+`;
 
-Example Output:
-1. Task: Learn Python basics
-   - Resources: "Automate the Boring Stuff with Python" (book), Codecademy Python course (website)
-   - Timeline: Day 1-2
-2. Task: Build a simple project
-   - Resources: "Python Crash Course" (book), freeCodeCamp Python projects (website)
-   - Timeline: Day 3-5
-3. Task: Practice coding challenges
-   - Resources: LeetCode (website), "Cracking the Coding Interview" (book)
-   - Timeline: Day 6-7
-Tips:
-- Set daily goals and review progress at the end of each day.
-- Join online communities (e.g., Reddit, Stack Overflow) for support and motivation.
-- Use tools like Trello or Notion to organize tasks and track progress.
+  const completion = await openai.chat.completions.create({
+    model: "openai/gpt-4o-mini",
+    messages: [{ role: "user", content: prompt }],
+  });
 
-return the learning plan in a clear, concise format.
-
-return the output as a structured list with tasks, resources, timelines, and tips.
-
-return the output in a format that can be easily read and followed by a user.
-
-  return the output in a way that is actionable and provides clear steps for the user to follow.
-
-  return the output in a way that is engaging and motivates the user to take action towards achieving their goal.
-
-    return the output in a way that is personalized to the user's goal and provides relevant resources and tips for achieving it.
-
-
-
-  `;
+  const text = completion.choices[0].message.content;
 
   try {
-    console.log("⏳ Generating plan...\n");
-
-    const completion = await openai.chat.completions.create({
-      model: "arcee-ai/trinity-large-preview:free",
-      messages: [
-        { role: "system", content: "You are a helpful assistant that creates personalized learning plans based on user goals." },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 1500,
-      
-    });
-
-    const result = completion.choices[0].message.content;
-
-    console.log("✅ Your Learning Plan:\n");
-    console.log(result);
-
-  } catch (error) {
-    console.error("❌ Error occurred:", error.message);
+    return JSON.parse(text);
+  } catch (err) {
+    console.error("❌ JSON parse error:", text);
+    return null;
   }
 };
 
-// 🚀 CLI Input Support
-const userGoal = process.argv[2];
+/**
+ * 📊 EVALUATE PROGRESS
+ */
+const evaluateProgress = async (goal, completed, total, daysPassed) => {
+  const prompt = `
+Goal: ${goal.title}
+Duration: ${goal.durationDays} days
+Completed tasks: ${completed}/${total}
+Days passed: ${daysPassed}
 
-// যদি terminal থেকে input না দেন, default goal ব্যবহার করবে
-analyzeGoal(userGoal || "Learn Python programming")
-  .then(() => console.log("\n🎉 Done"))
-  .catch((err) => console.error(err));
+Give a short evaluation and improvement advice.
+`;
+
+  const completion = await openai.chat.completions.create({
+    model: "openai/gpt-4o-mini",
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  return {
+    feedback: completion.choices[0].message.content
+  };
+};
+
+module.exports = { analyzeGoal, evaluateProgress };

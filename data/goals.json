@@ -1,0 +1,48 @@
+[
+  {
+    "title": "Learn JavaScript and react",
+    "durationDays": 7,
+    "plan": {
+      "dailyTasks": [
+        {
+          "day": 1,
+          "title": "Introduction to JavaScript",
+          "description": "Learn the basics of JavaScript: variables, data types, operators, and control structures."
+        },
+        {
+          "day": 2,
+          "title": "JavaScript Functions and Scope",
+          "description": "Understand functions, scopes, and closures in JavaScript. Practice writing simple functions."
+        },
+        {
+          "day": 3,
+          "title": "JavaScript Objects and Arrays",
+          "description": "Explore objects and arrays, their methods, and manipulation techniques."
+        },
+        {
+          "day": 4,
+          "title": "Introduction to React",
+          "description": "Learn the fundamentals of React, including components, JSX, and props."
+        },
+        {
+          "day": 5,
+          "title": "State and Lifecycle in React",
+          "description": "Understand state management in React and lifecycle methods. Build a simple counter application."
+        },
+        {
+          "day": 6,
+          "title": "Handling Events and Forms in React",
+          "description": "Learn how to handle events and manage form inputs in React applications."
+        },
+        {
+          "day": 7,
+          "title": "Build a Simple React App",
+          "description": "Combine your knowledge to create a simple React application, implementing all concepts learned."
+        }
+      ]
+    },
+    "status": "active",
+    "id": "1776744508006",
+    "createdAt": "2026-04-21T04:08:28.006Z"
+  }
+]

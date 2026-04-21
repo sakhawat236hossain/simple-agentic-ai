@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1776744508006-0",
+    "goalId": "1776744508006",
+    "day": 1,
+    "title": "Introduction to JavaScript",
+    "description": "Learn the basics of JavaScript: variables, data types, operators, and control structures.",
+    "completed": false
+  },
+  {
+    "id": "1776744508006-1",
+    "goalId": "1776744508006",
+    "day": 2,
+    "title": "JavaScript Functions and Scope",
+    "description": "Understand functions, scopes, and closures in JavaScript. Practice writing simple functions.",
+    "completed": false
+  },
+  {
+    "id": "1776744508006-2",
+    "goalId": "1776744508006",
+    "day": 3,
+    "title": "JavaScript Objects and Arrays",
+    "description": "Explore objects and arrays, their methods, and manipulation techniques.",
+    "completed": false
+  },
+  {
+    "id": "1776744508006-3",
+    "goalId": "1776744508006",
+    "day": 4,
+    "title": "Introduction to React",
+    "description": "Learn the fundamentals of React, including components, JSX, and props.",
+    "completed": false
+  },
+  {
+    "id": "1776744508006-4",
+    "goalId": "1776744508006",
+    "day": 5,
+    "title": "State and Lifecycle in React",
+    "description": "Understand state management in React and lifecycle methods. Build a simple counter application.",
+    "completed": false
+  },
+  {
+    "id": "1776744508006-5",
+    "goalId": "1776744508006",
+    "day": 6,
+    "title": "Handling Events and Forms in React",
+    "description": "Learn how to handle events and manage form inputs in React applications.",
+    "completed": false
+  },
+  {
+    "id": "1776744508006-6",
+    "goalId": "1776744508006",
+    "day": 7,
+    "title": "Build a Simple React App",
+    "description": "Combine your knowledge to create a simple React application, implementing all concepts learned.",
+    "completed": false
+  }
+]
